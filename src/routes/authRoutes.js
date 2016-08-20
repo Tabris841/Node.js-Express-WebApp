@@ -9,7 +9,7 @@ var router = function () {
             console.log(req.body);
             var url = 'mongodb://localhost:27017/libraryApp';
             mongodb.connect(url, function (err, db) {
-                var collection = db.collection('user');
+                var collection = db.collection('users');
                 var user = {
                     username: req.body.userName,
                     password: req.body.password
@@ -34,6 +34,12 @@ var router = function () {
         });
 
     authRouter.route('/profile')
+        .all(function (req, res, next) {
+            if (!req.user) {
+                res.redirect('/');
+            }
+            next();
+        })
         .get(function (req, res) {
             res.json(req.user);
         });

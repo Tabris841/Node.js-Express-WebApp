@@ -5,7 +5,7 @@ var mongodb = require('mongodb').MongoClient;
 module.exports = function () {
     passport.use(new LocalStrategy({
         usernameField: 'userName',
-        passwordField: 'passport'
+        passwordField: 'password'
     }, function (username, password, done) {
         var url = 'mongodb://localhost:27017/libraryApp';
         mongodb.connect(url, function (err, db) {
